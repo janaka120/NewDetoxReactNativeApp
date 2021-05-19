@@ -65,7 +65,7 @@ then
     # emulator @"$SIMULATOR_NAME"
     emulator -list-avds
 
-    # DETOX_CONFIG=android.emu.release
+    DETOX_CONFIG=android.emu.release
 else
     echo "Install AppleSimUtils"
 
@@ -79,11 +79,11 @@ else
     DETOX_CONFIG=ios.sim.release
 fi
 
-# echo "adb devices -----"
-# adb devices
+echo "adb devices -----"
+adb devices -l
 
-# echo "Building the project for Detox tests..."
-# npx detox build --configuration "$DETOX_CONFIG"
+echo "Building the project for Detox tests..."
+npx detox build --configuration "$DETOX_CONFIG"
 
-# echo "Executing Detox tests..."
-# npx detox test --configuration "$DETOX_CONFIG" -l trace --record-logs all --cleanup
+echo "Executing Detox tests..."
+npx detox test --configuration "$DETOX_CONFIG" -l trace --record-logs all --cleanup
