@@ -26,7 +26,7 @@ then
     sdkmanager --install "$SIMULATOR_IMAGE"
 
     echo "Create Simulator '$SIMULATOR_NAME' with image '$SIMULATOR_IMAGE'"
-    echo "no" | avdmanager --verbose create avd --force --name "$SIMULATOR_NAME" --device "pixel" --package "$SIMULATOR_IMAGE" --tag "google_apis" --abi "x86"
+    echo avdmanager --verbose create avd --force --name "$SIMULATOR_NAME" --device "pixel" --package "$SIMULATOR_IMAGE" --tag "google_apis" --abi "x86"
 
     echo "Run Emulator ---"
     emulator @"$SIMULATOR_NAME"
@@ -52,4 +52,4 @@ echo "Building the project for Detox tests..."
 npx detox build --configuration "$DETOX_CONFIG"
 
 echo "Executing Detox tests..."
-npx detox test --configuration "$DETOX_CONFIG" --cleanup
+npx detox test --configuration "$DETOX_CONFIG" -l trace --record-logs all --cleanup
