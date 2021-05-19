@@ -27,10 +27,10 @@ then
 
     echo "Create Simulator '$SIMULATOR_NAME' with image '$SIMULATOR_IMAGE'"
     echo "no" | avdmanager --verbose create avd --force --name "$SIMULATOR_NAME" --device "pixel" --package "$SIMULATOR_IMAGE" --tag "google_apis" --abi "x86"
-    
+
     echo "Run Emulator ---"
-    emulator "$SIMULATOR_NAME"
-    
+    emulator @"$SIMULATOR_NAME"
+
     DETOX_CONFIG=android.emu.release
 else
     echo "Install AppleSimUtils"
@@ -45,12 +45,11 @@ else
     DETOX_CONFIG=ios.sim.release
 fi
 
+echo "adb devices -----"
+adb devices
 
 echo "Building the project for Detox tests..."
 npx detox build --configuration "$DETOX_CONFIG"
 
 echo "Executing Detox tests..."
 npx detox test --configuration "$DETOX_CONFIG" --cleanup
-
-echo "adb devices -----"
-echo adb devices
