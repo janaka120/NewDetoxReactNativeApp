@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+APP_CENTER_CURRENT_PLATFORM="android"
+
 if [ -z "$APP_CENTER_CURRENT_PLATFORM" ]
 then
     echo "You need define the APP_CENTER_CURRENT_PLATFORM variable in App Center with values android or ios"
@@ -25,7 +27,10 @@ then
 
     echo "Create Simulator '$SIMULATOR_NAME' with image '$SIMULATOR_IMAGE'"
     echo "no" | avdmanager --verbose create avd --force --name "$SIMULATOR_NAME" --device "pixel" --package "$SIMULATOR_IMAGE" --tag "google_apis" --abi "x86"
-
+    
+    echo "Run Emulator ---"
+    emulator "$SIMULATOR_NAME"
+    
     DETOX_CONFIG=android.emu.release
 else
     echo "Install AppleSimUtils"
@@ -46,3 +51,6 @@ npx detox build --configuration "$DETOX_CONFIG"
 
 echo "Executing Detox tests..."
 npx detox test --configuration "$DETOX_CONFIG" --cleanup
+
+echo "adb devices -----"
+echo adb devices
