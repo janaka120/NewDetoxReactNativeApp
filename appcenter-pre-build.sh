@@ -10,9 +10,13 @@ fi
 
 if [ "$APP_CENTER_CURRENT_PLATFORM" == "android" ]
 then
+    echo "lsb_release -a"
+    lsb_release -a
+    echo "react-native info ---"
+    react-native info
     echo "Setup Android simulator"
     SIMULATOR_IMAGE="system-images;android-28;google_apis;x86"
-    SIMULATOR_NAME="Pixel_XL_API_28"
+    # SIMULATOR_NAME="Pixel_XL_API_28"
 
     ANDROID_HOME=~/Library/Android/sdk
     # ANDROID_SDK_ROOT=~/Library/Android/sdk
@@ -28,19 +32,23 @@ then
     export PATH=$PATH:$ANDROID_HOME/tools/bin/
     export PATH=$PATH:$ANDROID_HOME/tools/
     PATH=$ANDROID_HOME/emulator:$PATH
-    
+
     echo "PATH ---'$PATH'"
 
     # Install AVD files
+    echo "Install AVD files---"
     $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-29;default;x86'
     yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses
 
     # Create emulator
+    echo "Create emulator---"
     echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-29;default;x86' --force
+    echo "Finish creating emulator---"
 
     $ANDROID_HOME/emulator/emulator -list-avds
 
     # Set screen dimensions
+    echo "Set screen dimensions---"
     echo "hw.lcd.density=420" >> ~/.android/avd/Pixel_API_29_AOSP.avd/config.ini
     echo "hw.lcd.height=1920" >> ~/.android/avd/Pixel_API_29_AOSP.avd/config.ini
     echo "hw.lcd.width=1080" >> ~/.android/avd/Pixel_API_29_AOSP.avd/config.ini

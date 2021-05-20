@@ -28,7 +28,8 @@ describe('Example', () => {
   });
 
   beforeEach(async () => {
-    await device.reloadReactNative();
+    // await device.reloadReactNative();
+    await device.launchApp({newInstance: true});
   });
 
   it('should have edit text on welcome screen', async () => {
